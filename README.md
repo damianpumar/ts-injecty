@@ -16,16 +16,16 @@
 
 ## Features
 
--   No dependencies
--   Simple but powerful
--   Does not requires decorators
--   Works great with both javascript and typescript
--   Auto register dependencies class.
--   Well typed for your dependencies
+-   👌 No dependencies
+-   🚀 Simple but powerful
+-   🎄 Does not requires decorators
+-   🏋️‍♂️ Works great with both javascript and typescript
+-   🏎️ Auto register dependencies class.
+-   🧩 Well typed for your dependencies
 
 ## New version 🚀
 
-Now we are supporting factories
+Now we are supporting factories 🏭
 
 ```typescript
 // You must extends your custom factories from Factory, and we will inject automatically the resolver in your factory.
@@ -52,7 +52,7 @@ expect(resolved.create("Bar")).toBeInstanceOf(Bar);
 expect(resolved.create("Buzz")).toBeInstanceOf(Buzz);
 ```
 
-## Version: 0.0.17
+## Version: 0.0.18 👇
 
 Support the constructor parameters fully typed
 
@@ -76,7 +76,7 @@ class NoDeps {}
 register(NoDeps).build();
 ```
 
-## Motivation
+## Motivation 🏃‍♀️
 
 Popular solutions like `inversify` or `tsyringe` use `reflect-metadata` that allows to fetch argument types and based on
 those types and do autowiring. Autowiring is a nice feature but the trade-off is decorators.
