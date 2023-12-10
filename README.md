@@ -1,7 +1,10 @@
 # Dependency Injection Container
 
-<a href="https://pkg-size.dev/ts-injecty"><img src="https://pkg-size.dev/badge/install/50938" title="Install size for ts-injecty"></a>
-<a href="https://pkg-size.dev/ts-injecty"><img src="https://pkg-size.dev/badge/bundle/7905" title="Bundle size for ts-injecty"></a>
+<img alt="npm" src="https://img.shields.io/npm/v/ts-injecty">
+<img alt="npm" src="https://img.shields.io/npm/dt/ts-injecty">
+<img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/ts-injecty">
+<img alt="npm package minimized gzipped size (select exports)" src="https://img.shields.io/bundlejs/size/ts-injecty">
+<img alt="NPM" src="https://img.shields.io/npm/l/ts-injecty">
 
 # Getting Started
 
