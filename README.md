@@ -1,10 +1,12 @@
-# Dependency Injection Container
+# Dependency Injection Container for Typescript and Javascript 💉
 
-<img alt="npm" src="https://img.shields.io/npm/v/ts-injecty">
-<img alt="npm" src="https://img.shields.io/npm/dt/ts-injecty">
-<img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/ts-injecty">
-<img alt="npm package minimized gzipped size (select exports)" src="https://img.shields.io/bundlejs/size/ts-injecty">
-<img alt="NPM" src="https://img.shields.io/npm/l/ts-injecty">
+<p align="center">
+    <img alt="npm" src="https://img.shields.io/npm/v/ts-injecty">
+    <img alt="npm" src="https://img.shields.io/npm/dt/ts-injecty">
+    <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/ts-injecty">
+    <img alt="npm package minimized gzipped size (select exports)" src="https://img.shields.io/bundlejs/size/ts-injecty">
+    <img alt="NPM" src="https://img.shields.io/npm/l/ts-injecty">
+</p>
 
 # Getting Started
 
