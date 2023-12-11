@@ -11,7 +11,7 @@ describe("FactoryDefinition", () => {
 
     test("it resolves value using values from container", () => {
         const container = new DIContainer();
-        container.addDefinition("key1", new ValueDefinition("value1"));
+        container.register("key1", new ValueDefinition("value1"));
         const definition = new FactoryDefinition((resolver: Resolver) => {
             return resolver.resolve("key1");
         });
@@ -20,7 +20,7 @@ describe("FactoryDefinition", () => {
 
     test("it resolves value using async factory", async () => {
         const container = new DIContainer();
-        container.addDefinition("key1", new ValueDefinition("value1"));
+        container.register("key1", new ValueDefinition("value1"));
         const definition = new FactoryDefinition(async (resolver: Resolver) => {
             return await new Promise((resolve) =>
                 setTimeout(() => {

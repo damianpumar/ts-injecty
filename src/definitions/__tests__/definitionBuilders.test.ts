@@ -29,7 +29,7 @@ describe("definitionBuilders", () => {
 
     test("it resolves existing definition", () => {
         const container = new DIContainer();
-        container.addDefinition("key1", new ValueDefinition("value1"));
+        container.register("key1", new ValueDefinition("value1"));
         const definition = get("key1");
 
         expect(definition.resolve(container)).toEqual("value1");

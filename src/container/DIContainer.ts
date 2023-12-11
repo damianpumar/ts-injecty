@@ -21,7 +21,7 @@ export default class DIContainer implements IDIContainer {
         return this.get<T>(type.name, parentDeps);
     }
 
-    addDefinition(name: string, definition: BaseDefinition | any) {
+    register(name: string, definition: BaseDefinition | string) {
         if (name in this.definitions) return;
 
         if (!(definition instanceof BaseDefinition)) {
@@ -29,12 +29,6 @@ export default class DIContainer implements IDIContainer {
         }
 
         this.definitions[name] = definition;
-    }
-
-    addDefinitions(definitions: Definitions | any) {
-        Object.keys(definitions).map((name: string) => {
-            this.addDefinition(name, definitions[name]);
-        });
     }
 
     private get<T>(name: string, parentDeps: string[] = []): T {

@@ -58,7 +58,7 @@ export class Container {
             if (!registration.implementation)
                 throw new ImplementationIsMissingError(registration.type);
 
-            this.container.addDefinition(
+            this.container.register(
                 registration.type,
                 registration.implementation.prototype?.constructor
                     ? object(registration.implementation, registration.mode)
@@ -69,7 +69,7 @@ export class Container {
         }
 
         if (this.isFactory(registration)) {
-            this.container.addDefinition(
+            this.container.register(
                 registration.type.name,
                 factory((resolver: Resolver) => {
                     return new registration.type(resolver);
@@ -79,7 +79,7 @@ export class Container {
             return;
         }
 
-        this.container.addDefinition(
+        this.container.register(
             registration.type.name,
             object(
                 registration.implementation ?? registration.type,
@@ -110,7 +110,7 @@ export class Container {
 
             injections.push(get(type.name));
 
-            this.container.addDefinition(type.name, object(type, mode));
+            this.container.register(type.name, object(type, mode));
         }
 
         return injections;

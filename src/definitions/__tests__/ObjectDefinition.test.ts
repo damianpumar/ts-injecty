@@ -71,7 +71,7 @@ describe("ObjectDefinition", () => {
     );
 
     test("it resolves deps while calling method", () => {
-        container.addDefinition("key1", "value1");
+        container.register("key1", "value1");
         const definition = new ObjectDefinition(Foo).method(
             "addItem",
             get("key1")
