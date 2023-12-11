@@ -1,9 +1,10 @@
+import BaseDefinition from "../definitions/BaseDefinition";
 import { ResolveArg } from "../types";
 
-export interface Resolver {
-    resolve<T>(type: ResolveArg<T>): T;
-}
+export type Definitions = Record<string, BaseDefinition>;
 
-export interface IDIContainer extends Resolver {
-    get: <T>(serviceName: string) => T;
+export interface IDIContainer {
+    resolve<T>(type: ResolveArg<T>, parentDeps?: string[]): T;
+    addDefinition(name: string, definition: BaseDefinition | any): void;
+    addDefinitions(definitions: Definitions | any): void;
 }

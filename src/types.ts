@@ -1,4 +1,4 @@
-import { Resolver } from "./container/IDIContainer";
+import { Resolver } from "./definitions/FactoryDefinition";
 
 export enum Mode {
     SINGLETON,

@@ -1,6 +1,5 @@
 import DIContainer from "../../container/DIContainer";
-import { IDIContainer, Resolver } from "../../container/IDIContainer";
-import FactoryDefinition from "../FactoryDefinition";
+import FactoryDefinition, { Resolver } from "../FactoryDefinition";
 import ValueDefinition from "../ValueDefinition";
 
 describe("FactoryDefinition", () => {

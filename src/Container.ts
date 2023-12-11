@@ -1,10 +1,12 @@
 import { Registration, ResolveArg } from "./types";
 
 import DIContainer from "./container/DIContainer";
+
 import BaseDefinition from "./definitions/BaseDefinition";
+import { object, value, get, factory } from "./definitions/DefinitionBuilders";
+
 import ImplementationIsMissingError from "./errors/ImplementationIsMissingError";
-import { object, value, get, factory } from "./definitions/definitionBuilders";
-import { Resolver } from "./container/IDIContainer";
+import { Resolver } from "./definitions/FactoryDefinition";
 
 export abstract class Factory {
     constructor(protected readonly resolver: Resolver) {}
@@ -15,11 +17,11 @@ export class Container {
 
     private constructor() {}
 
-    public static register(registrations: Registration[]): void {
+    static register(registrations: Registration[]): void {
         this.instance.register(registrations);
     }
 
-    public static resolve<T>(type: ResolveArg<T>): T {
+    static resolve<T>(type: ResolveArg<T>): T {
         return this.instance.resolve<T>(type);
     }
 
@@ -32,11 +34,11 @@ export class Container {
         return this._instance;
     }
 
-    public static dispose() {
+    static dispose() {
         this._instance = null;
     }
 
-    public register(registrations: Registration[]): void {
+    register(registrations: Registration[]): void {
         for (const registration of registrations) {
             const dependencies = this.registerDependencies(registration);
 
@@ -44,7 +46,7 @@ export class Container {
         }
     }
 
-    public resolve<T>(type: ResolveArg<T>): T {
+    resolve<T>(type: ResolveArg<T>): T {
         return this.container.resolve(type);
     }
 

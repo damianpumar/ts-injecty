@@ -1,7 +1,7 @@
 import DIContainer from "../../container/DIContainer";
 import ObjectDefinition from "../ObjectDefinition";
 import ValueDefinition from "../ValueDefinition";
-import { factory, get, object } from "../definitionBuilders";
+import { factory, get, object } from "../DefinitionBuilders";
 
 import { Bar, Foo } from "../../__tests__/fakeClasses";
 

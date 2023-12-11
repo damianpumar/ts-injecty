@@ -17,6 +17,7 @@ export default class ObjectDefinition extends BaseDefinition {
 
     constructor(constructorFunction: Ref<any>, mode: Mode = Mode.TRANSIENT) {
         super(mode);
+
         if (typeof constructorFunction !== "function") {
             throw new InvalidConstructorError();
         }
@@ -74,9 +75,15 @@ export default class ObjectDefinition extends BaseDefinition {
     }
 
     private createObject = (deps: Array<BaseDefinition | any>) => {
-        return this.constructorFunction.prototype &&
-            Object.hasOwn(this.constructorFunction.prototype, "constructor")
+        return this.isAClass()
             ? new this.constructorFunction(...deps)
             : (this.constructorFunction as any)();
     };
+
+    private isAClass() {
+        return (
+            this.constructorFunction.prototype &&
+            Object.hasOwn(this.constructorFunction.prototype, "constructor")
+        );
+    }
 }
