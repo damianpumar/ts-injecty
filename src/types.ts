@@ -1,9 +1,6 @@
 import { Resolver } from "./definitions/FactoryDefinition";
 
-export enum Mode {
-    SINGLETON,
-    TRANSIENT,
-}
+export type Mode = "singleton" | "transient";
 
 export class Registration {
     public constructor(

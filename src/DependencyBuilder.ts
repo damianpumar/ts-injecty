@@ -9,7 +9,7 @@ import {
 
 export const register = <R extends string | Class>(type: R) => {
     const dependencies: any[] = [];
-    let mode: Mode = Mode.TRANSIENT;
+    let mode: Mode = "transient";
 
     const withDependencies = (...parameters: unknown[]) => {
         parameters.forEach((parameter) => {
@@ -27,18 +27,18 @@ export const register = <R extends string | Class>(type: R) => {
 
     const withImplementation = (parameter: ImplementationArg<R>) => {
         return {
-            build: () => buildImplementation(Mode.SINGLETON, type, parameter),
+            build: () => buildImplementation(type, parameter),
         };
     };
 
     const withDynamic = (parameter: Function) => {
         return {
-            build: () => buildImplementation(Mode.SINGLETON, type, parameter()),
+            build: () => buildImplementation(type, parameter()),
         };
     };
 
     const asASingleton = () => {
-        mode = Mode.SINGLETON;
+        mode = "singleton";
 
         return { withDependency, build };
     };
@@ -69,6 +69,6 @@ const buildDependency = (
     return new Registration(mode, type, dependencies);
 };
 
-const buildImplementation = (mode: Mode, type: any, implementation: any) => {
-    return new Registration(mode, type, [], implementation);
+const buildImplementation = (type: any, implementation: any) => {
+    return new Registration("singleton", type, [], implementation);
 };

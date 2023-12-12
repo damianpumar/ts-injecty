@@ -2,7 +2,6 @@ import DIContainer from "../container/DIContainer";
 
 import { object, value, get, factory } from "../definitions/DefinitionBuilders";
 import { Foo } from "./fakeClasses";
-import { Mode } from "../types";
 
 import DependencyIsMissingError from "../errors/DependencyIsMissingError";
 
@@ -26,10 +25,7 @@ describe("DIContainer", () => {
 
     test("it always returns singleton", () => {
         const container = new DIContainer();
-        container.register(
-            "foo",
-            object(Foo, Mode.SINGLETON).construct("name1")
-        );
+        container.register("foo", object(Foo, "singleton").construct("name1"));
 
         const foo = container.resolve<Foo>("foo");
         expect(foo.name).toEqual("name1");

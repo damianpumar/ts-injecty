@@ -7,6 +7,6 @@ export default abstract class BaseDefinition {
     abstract resolve<T>(container: IDIContainer, parentDeps?: string[]): T;
 
     isSingleton(): boolean {
-        return this.mode === Mode.SINGLETON;
+        return this.mode === "singleton";
     }
 }

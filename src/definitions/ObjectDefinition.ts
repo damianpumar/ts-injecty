@@ -15,7 +15,7 @@ export default class ObjectDefinition extends BaseDefinition {
     private deps: Array<BaseDefinition | any> = [];
     private methods: IExtraMethods[] = [];
 
-    constructor(constructorFunction: Ref<any>, mode: Mode = Mode.TRANSIENT) {
+    constructor(constructorFunction: Ref<any>, mode: Mode = "transient") {
         super(mode);
 
         if (typeof constructorFunction !== "function") {
