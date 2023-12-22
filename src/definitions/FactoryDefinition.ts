@@ -6,10 +6,10 @@ export interface Resolver {
     resolve<T>(type: ResolveArg<T>): T;
 }
 
-export type FactoryType = (resolver: Resolver) => any;
+export type Factory = (resolver: Resolver) => any;
 
 export default class FactoryDefinition extends BaseDefinition {
-    constructor(private readonly factory: FactoryType) {
+    constructor(private readonly factory: Factory) {
         super("transient");
     }
 
