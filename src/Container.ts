@@ -6,11 +6,6 @@ import BaseDefinition from "./definitions/BaseDefinition";
 import { object, value, get, factory } from "./definitions/DefinitionBuilders";
 
 import ImplementationIsMissingError from "./errors/ImplementationIsMissingError";
-import { Resolver } from "./definitions/FactoryDefinition";
-
-export abstract class Factory {
-    constructor(protected readonly resolver: Resolver) {}
-}
 
 export class Container {
     private readonly container: DIContainer = new DIContainer();
@@ -54,7 +49,7 @@ export class Container {
         registration: Registration,
         dependencies: BaseDefinition[]
     ) {
-        if (this.isInterface(registration)) {
+        if (registration.isInterface) {
             if (!registration.implementation)
                 throw new ImplementationIsMissingError(registration.type);
 
@@ -68,10 +63,10 @@ export class Container {
             return;
         }
 
-        if (this.isFactory(registration)) {
+        if (registration.isFactory) {
             this.container.register(
                 registration.type.name,
-                factory((resolver: Resolver) => {
+                factory((resolver) => {
                     return new registration.type(resolver);
                 })
             );
@@ -88,21 +83,13 @@ export class Container {
         );
     }
 
-    private isFactory(registration: Registration) {
-        return registration.type.prototype instanceof Factory;
-    }
-
-    private isInterface(registration: Registration) {
-        return typeof registration.type === "string";
-    }
-
     private registerDependencies(registration: Registration) {
         const injections: BaseDefinition[] = [];
 
-        for (const parameter of registration.dependencies) {
-            const { type, mode } = parameter;
+        for (const dependency of registration.dependencies) {
+            const { type, isInterface, mode } = dependency;
 
-            if (typeof type === "string") {
+            if (isInterface) {
                 injections.push(get(type));
 
                 continue;

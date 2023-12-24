@@ -2,6 +2,10 @@ import { Resolver } from "./definitions/FactoryDefinition";
 
 export type Mode = "singleton" | "transient";
 
+export abstract class Factory {
+    constructor(protected readonly resolver: Resolver) {}
+}
+
 export class Registration {
     public constructor(
         public readonly mode: Mode,
@@ -9,6 +13,14 @@ export class Registration {
         public readonly dependencies: Registration[],
         public readonly implementation?: any
     ) {}
+
+    get isInterface(): boolean {
+        return typeof this.type === "string";
+    }
+
+    get isFactory() {
+        return this.type.prototype instanceof Factory;
+    }
 }
 
 export type Class = abstract new (...args: any) => any;
@@ -142,9 +154,11 @@ type Dependency<R> = Length<ConstructorTypes<R>> extends 1
     ? SevenDepParams<R>
     : Scope<R>;
 
-type Factory<R> = ConstructorTypes<R>[0] extends Resolver ? Build : never;
+type FactoryImplementation<R> = ConstructorTypes<R>[0] extends Resolver
+    ? Build
+    : never;
 type ClassRegisterType<R> =
-    | Factory<R>
+    | FactoryImplementation<R>
     | (Dependency<R> & Scope<R> & ClassImplementation<R>);
 
 export type RegisterType<R> = R extends string

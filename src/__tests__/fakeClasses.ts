@@ -1,4 +1,4 @@
-import { Factory } from "../Container";
+import { Factory } from "../index";
 
 export class Foo {
     public name: string;
