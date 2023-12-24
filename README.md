@@ -14,7 +14,7 @@
 -   [Motivation](#motivation)
 -   [Usage](#usage)
 
-## Features
+## Features 🏋️‍♂️
 
 -   👌 No dependencies
 -   🚀 Simple but powerful
@@ -78,15 +78,16 @@ register(NoDeps).build();
 
 ## Motivation 🏃‍♀️
 
-Popular solutions like `inversify` or `tsyringe` use `reflect-metadata` that allows to fetch argument types and based on
+Popular solutions like [inversify](https://inversify.io/) or [tsyringe](https://github.com/microsoft/tsyringe) use [reflect-metadata](https://github.com/rbuckton/reflect-metadata) that allows to fetch argument types and based on
 those types and do autowiring. Autowiring is a nice feature but the trade-off is decorators.
 Disadvantages of other solutions
 
 1.  Those solutions work with typescript only. Since they rely on argument types that we don't have in Javascript.
 2.  I have to update my tsconfig because one package requires it.
 3.  Let my components know about injections.
+4.  They do not respect the principles of [clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-## Usage
+## Usage 🥁
 
 ### Register Class with Class dependency
 
