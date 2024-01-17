@@ -40,7 +40,7 @@ export const register = <R extends string | Class>(type: R) => {
     const asASingleton = () => {
         mode = "singleton";
 
-        return { withDependency, build };
+        return { withDependency, withDependencies, build };
     };
 
     const build = () => {
