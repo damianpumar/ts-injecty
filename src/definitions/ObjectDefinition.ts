@@ -3,7 +3,6 @@ import BaseDefinition from "./BaseDefinition";
 import { IDIContainer } from "../container/IDIContainer";
 import MethodIsMissingError from "../errors/MethodIsMissingError";
 import InvalidConstructorError from "../errors/InvalidConstructorError";
-import ExistingDefinition from "./ExistingDefinition";
 
 interface IExtraMethods {
     methodName: string;
@@ -12,7 +11,7 @@ interface IExtraMethods {
 
 export default class ObjectDefinition extends BaseDefinition {
     private readonly constructorFunction: Ref<any>;
-    private deps: Array<BaseDefinition | any> = [];
+    public _dependencies: Array<BaseDefinition | any> = [];
     private methods: IExtraMethods[] = [];
 
     constructor(constructorFunction: Ref<any>, mode: Mode = "transient") {
@@ -25,12 +24,12 @@ export default class ObjectDefinition extends BaseDefinition {
         this.constructorFunction = constructorFunction;
     }
 
-    construct(...deps: BaseDefinition | any): ObjectDefinition {
-        this.deps = deps;
+    construct(...deps: BaseDefinition | any): this {
+        this.dependencies = deps;
         return this;
     }
 
-    method(methodName: string, ...args: any): ObjectDefinition {
+    method(methodName: string, ...args: any): this {
         this.methods.push({
             methodName,
             args,
@@ -39,10 +38,11 @@ export default class ObjectDefinition extends BaseDefinition {
     }
 
     resolve<T>(diContainer: IDIContainer, parentDeps: string[] = []): T {
-        const deps = this.deps.map((dep: BaseDefinition | any) => {
+        const deps = this.dependencies.map((dep: BaseDefinition | any) => {
             if (dep instanceof BaseDefinition) {
                 return dep.resolve(diContainer, parentDeps);
             }
+
             return dep;
         });
 
@@ -68,10 +68,8 @@ export default class ObjectDefinition extends BaseDefinition {
         return object;
     }
 
-    get dependencies(): string[] {
-        return this.deps
-            .filter((dep) => dep instanceof ExistingDefinition)
-            .map((dep: ExistingDefinition) => dep.name);
+    get dependencies() {
+        return this._dependencies;
     }
 
     private createObject = (deps: Array<BaseDefinition | any>) => {
@@ -85,5 +83,9 @@ export default class ObjectDefinition extends BaseDefinition {
             this.constructorFunction.prototype &&
             Object.hasOwn(this.constructorFunction.prototype, "constructor")
         );
+    }
+
+    private set dependencies(deps: Array<BaseDefinition | any>) {
+        this._dependencies = deps;
     }
 }

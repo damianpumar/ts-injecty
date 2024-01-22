@@ -132,7 +132,7 @@ describe("DIContainer", () => {
         expect(() => {
             container.resolve("foo");
         }).toThrow(
-            'Circular Dependency is detected. Dependency: "foo", path: foo -> bar'
+            'Circular Dependency is detected. Dependency: "foo", path: foo -> bar -> **foo**.'
         );
     });
 
@@ -155,7 +155,7 @@ describe("DIContainer", () => {
         expect(() => {
             container.resolve("foo");
         }).toThrowError(
-            'Circular Dependency is detected. Dependency: "foo", path: foo -> bar -> buzz.'
+            'Circular Dependency is detected. Dependency: "foo", path: foo -> bar -> buzz -> **foo**.'
         );
     });
 });
