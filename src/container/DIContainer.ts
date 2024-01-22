@@ -4,8 +4,10 @@ import { Definitions, IDIContainer } from "./IDIContainer";
 
 import BaseDefinition from "../definitions/BaseDefinition";
 import ValueDefinition from "../definitions/ValueDefinition";
+import ObjectDefinition from "../definitions/ObjectDefinition";
 
 import DependencyIsMissingError from "../errors/DependencyIsMissingError";
+import CircularDependencyError from "../errors/CircularDependencyError";
 
 export default class DIContainer implements IDIContainer {
     private definitions: Definitions = {};
@@ -36,6 +38,8 @@ export default class DIContainer implements IDIContainer {
 
         const definition = this.definitions[name];
 
+        this.validateCircularResolution(parentDeps, name, definition);
+
         if (definition.isSingleton() && !!this.resolved[name]) {
             return this.resolved[name];
         }
@@ -44,5 +48,23 @@ export default class DIContainer implements IDIContainer {
         this.resolved[name] = definition.resolve<T>(this, parentDeps);
 
         return this.resolved[name];
+    }
+
+    private validateCircularResolution(
+        parentDeps: string[],
+        name: string,
+        definition: BaseDefinition
+    ) {
+        if (!parentDeps.includes(name)) return;
+
+        if (!(definition instanceof ObjectDefinition)) return;
+
+        if (
+            definition.dependencies.some((dependency) =>
+                parentDeps.includes(dependency)
+            )
+        ) {
+            throw new CircularDependencyError(name, parentDeps);
+        }
     }
 }

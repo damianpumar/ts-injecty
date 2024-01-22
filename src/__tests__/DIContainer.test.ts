@@ -116,4 +116,46 @@ describe("DIContainer", () => {
             container.resolve<TestUserRepository>("TestUserRepository");
         expect(await userRepository.findUser()).toBe("DSN-secret + findUser");
     });
+
+    test("it can detect simple circular dependencies", () => {
+        class Foo {
+            constructor(public bar: Bar) {}
+        }
+        class Bar {
+            constructor(public foo: Foo) {}
+        }
+
+        const container = new DIContainer();
+
+        container.register("foo", object(Foo).construct(get("bar")));
+        container.register("bar", object(Bar).construct(get("foo")));
+        expect(() => {
+            container.resolve("foo");
+        }).toThrow(
+            'Circular Dependency is detected. Dependency: "foo", path: foo -> bar'
+        );
+    });
+
+    test("it can detect deep circular dependencies", () => {
+        class Foo {
+            constructor(public bar: Bar) {}
+        }
+        class Bar {
+            constructor(public buzz: Buzz) {}
+        }
+        class Buzz {
+            constructor(public foo: Foo) {}
+        }
+
+        const container = new DIContainer();
+        container.register("foo", object(Foo).construct(get("bar")));
+        container.register("bar", object(Bar).construct(get("buzz")));
+        container.register("buzz", object(Buzz).construct(get("foo")));
+
+        expect(() => {
+            container.resolve("foo");
+        }).toThrowError(
+            'Circular Dependency is detected. Dependency: "foo", path: foo -> bar -> buzz.'
+        );
+    });
 });
