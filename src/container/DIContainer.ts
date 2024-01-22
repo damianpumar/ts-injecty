@@ -4,8 +4,11 @@ import { Definitions, IDIContainer } from "./IDIContainer";
 
 import BaseDefinition from "../definitions/BaseDefinition";
 import ValueDefinition from "../definitions/ValueDefinition";
+import ObjectDefinition from "../definitions/ObjectDefinition";
 
 import DependencyIsMissingError from "../errors/DependencyIsMissingError";
+import CircularDependencyError from "../errors/CircularDependencyError";
+import ExistingDefinition from "../definitions/ExistingDefinition";
 
 export default class DIContainer implements IDIContainer {
     private definitions: Definitions = {};
@@ -41,7 +44,12 @@ export default class DIContainer implements IDIContainer {
         }
 
         parentDeps.push(name);
-        this.resolved[name] = definition.resolve<T>(this, parentDeps);
+
+        try {
+            this.resolved[name] = definition.resolve<T>(this, parentDeps);
+        } catch (error) {
+            throw new CircularDependencyError(name, parentDeps);
+        }
 
         return this.resolved[name];
     }
