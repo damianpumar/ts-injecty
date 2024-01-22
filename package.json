@@ -1,6 +1,6 @@
 {
     "name": "ts-injecty",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "Dependency injection container without dependencies",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
