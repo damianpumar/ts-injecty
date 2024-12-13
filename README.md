@@ -13,6 +13,7 @@
 -   [Features](#features)
 -   [Motivation](#motivation)
 -   [Usage](#usage)
+-   [Our wiki](https://github.com/damianpumar/ts-injecty/wiki)
 
 ## Features 🏋️‍♂️
 
