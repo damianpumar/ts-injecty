@@ -50,6 +50,7 @@ export type ConstructorTypes<T> = T extends abstract new (
     : never;
 
 type Length<T extends Array<any>> = T extends { length: infer L } ? L : never;
+type HasDeps<T extends Array<any>> = Length<T> extends 0 ? false : true;
 
 type TypedFunction<T> = () => T;
 
@@ -157,9 +158,12 @@ type Dependency<R> = Length<ConstructorTypes<R>> extends 1
 type FactoryImplementation<R> = ConstructorTypes<R>[0] extends Resolver
     ? Build
     : never;
+
 type ClassRegisterType<R> =
     | FactoryImplementation<R>
-    | (Dependency<R> & Scope<R> & ClassImplementation<R>);
+    | HasDeps<ConstructorTypes<R>> extends true
+    ? Dependency<R> & Scope<R>
+    : Scope<R> & Dependency<R> & ClassImplementation<R>;
 
 export type RegisterType<R> = R extends string
     ? StringRegisterType<R>
