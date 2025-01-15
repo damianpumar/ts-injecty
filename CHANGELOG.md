@@ -4,15 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.0](https://github.com/damianpumar/ts-injecty/compare/v0.0.24...v1.0.0)
 
-### Refactor
-
--   🎉 Improve and refactor code ([7](https://github.com/damianpumar/ts-injecty/pull/7))
-
-## [0.0.24](https://github.com/damianpumar/ts-injecty/compare/v0.0.23...v0.0.24)
-
 ### Fixed
 
 -   🤘 Upgrade project target ([8])(https://github.com/damianpumar/ts-injecty/pull/8)
+
+### Refactor
+
+-   🎉 Improve and refactor code ([7](https://github.com/damianpumar/ts-injecty/pull/7))
 
 ## [0.0.23](https://github.com/damianpumar/ts-injecty/compare/v0.0.22...v0.0.23)
 
