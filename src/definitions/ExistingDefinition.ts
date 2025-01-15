@@ -1,7 +1,7 @@
-import BaseDefinition from "./BaseDefinition";
+import Definition from "./Definition";
 import { IDIContainer } from "../container/IDIContainer";
 
-export default class ExistingDefinition extends BaseDefinition {
+export default class ExistingDefinition extends Definition {
     constructor(public readonly name: string) {
         super("transient");
     }

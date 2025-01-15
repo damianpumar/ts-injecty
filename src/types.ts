@@ -23,20 +23,20 @@ export class Registration {
     }
 }
 
-export type Class = abstract new (...args: any) => any;
+export type ClassReference = abstract new (...args: any) => any;
 
-export interface Ref<T> extends Function {
+export interface Class<T> extends Function {
     new (...args: any[]): T;
 }
 
-export type ResolveArg<T> = string | Ref<T>;
+export type ResolveArg<T> = string | Class<T>;
 
 export type DependencyArg<R, T> = R extends string
     ? never
-    : string | Function | Ref<T>;
+    : string | Function | Class<T>;
 
 export type ImplementationArg<R> = R extends string
-    ? Function | Class | object
+    ? Function | ClassReference | object
     : unknown;
 
 export interface Build {
@@ -57,9 +57,9 @@ type TypedFunction<T> = () => T;
 type Dep<R, N> = N extends number
     ?
           | string // Reference of an object previously registered
-          | Ref<ConstructorTypes<R>[N]> // Class reference
-          | Typed<Ref<ConstructorTypes<R>[N]>> // Class instance
-          | TypedFunction<Typed<Ref<ConstructorTypes<R>[N]>>> // Function return instance
+          | Class<ConstructorTypes<R>[N]> // Class reference
+          | Typed<Class<ConstructorTypes<R>[N]>> // Class instance
+          | TypedFunction<Typed<Class<ConstructorTypes<R>[N]>>> // Function return instance
     : never;
 
 interface SevenDepParams<R> {
@@ -128,7 +128,7 @@ interface Scope<R> {
         : Dependency<R>;
 }
 
-type Typed<R> = R extends Ref<infer L> ? L : never;
+type Typed<R> = R extends Class<infer L> ? L : never;
 
 interface ClassImplementation<R> extends Build {
     withImplementation: (implementation: Typed<R>) => Build;

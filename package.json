@@ -1,6 +1,6 @@
 {
     "name": "ts-injecty",
-    "version": "0.0.24",
+    "version": "1.0.0",
     "description": "Dependency injection container without dependencies",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -14,7 +14,9 @@
         "prerelease": "rm -rf ./dist",
         "release": "NODE_ENV=production tsc --build tsconfig.json",
         "postrelease": "minify-all-js ./dist",
-        "deploy": "npm publish --access public"
+        "predeploy": "npm run release",
+        "deploy": "npm publish --access public && npm run push-tag",
+        "postdeploy": "git push --tags"
     },
     "keywords": [
         "dependency injection",

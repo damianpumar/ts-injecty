@@ -1,4 +1,4 @@
-import BaseDefinition from "./BaseDefinition";
+import Definition from "./Definition";
 import { IDIContainer } from "../container/IDIContainer";
 import { ResolveArg } from "../types";
 
@@ -8,7 +8,7 @@ export interface Resolver {
 
 export type Factory = (resolver: Resolver) => any;
 
-export default class FactoryDefinition extends BaseDefinition {
+export default class FactoryDefinition extends Definition {
     constructor(private readonly factory: Factory) {
         super("transient");
     }
