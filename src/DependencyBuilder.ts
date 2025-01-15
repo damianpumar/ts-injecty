@@ -1,5 +1,5 @@
 import {
-    Class,
+    ClassReference,
     DependencyArg,
     ImplementationArg,
     Mode,
@@ -7,7 +7,7 @@ import {
     Registration,
 } from "./types";
 
-export const register = <R extends string | Class>(type: R) => {
+export const register = <R extends string | ClassReference>(type: R) => {
     const dependencies: any[] = [];
     let mode: Mode = "transient";
 

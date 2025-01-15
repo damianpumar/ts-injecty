@@ -14,7 +14,9 @@
         "prerelease": "rm -rf ./dist",
         "release": "NODE_ENV=production tsc --build tsconfig.json",
         "postrelease": "minify-all-js ./dist",
-        "deploy": "npm publish --access public"
+        "predeploy": "npm run release",
+        "deploy": "npm publish --access public && npm run push-tag",
+        "postdeploy": "git push --tags"
     },
     "keywords": [
         "dependency injection",

@@ -1,20 +1,20 @@
-import { Ref, Mode } from "../types";
-import BaseDefinition from "./BaseDefinition";
+import { Class, Mode } from "../types";
+import Definition from "./Definition";
 import { IDIContainer } from "../container/IDIContainer";
 import MethodIsMissingError from "../errors/MethodIsMissingError";
 import InvalidConstructorError from "../errors/InvalidConstructorError";
 
-interface IExtraMethods {
+interface Methods {
     methodName: string;
     args: any;
 }
 
-export default class ObjectDefinition extends BaseDefinition {
-    private readonly constructorFunction: Ref<any>;
-    public _dependencies: Array<BaseDefinition | any> = [];
-    private methods: IExtraMethods[] = [];
+export default class ObjectDefinition extends Definition {
+    private readonly constructorFunction: Class<any>;
+    public _dependencies: Array<Definition | any> = [];
+    private methods: Methods[] = [];
 
-    constructor(constructorFunction: Ref<any>, mode: Mode = "transient") {
+    constructor(constructorFunction: Class<any>, mode: Mode = "transient") {
         super(mode);
 
         if (typeof constructorFunction !== "function") {
@@ -24,7 +24,7 @@ export default class ObjectDefinition extends BaseDefinition {
         this.constructorFunction = constructorFunction;
     }
 
-    construct(...deps: BaseDefinition | any): this {
+    construct(...deps: Definition | any): this {
         this.dependencies = deps;
         return this;
     }
@@ -38,8 +38,8 @@ export default class ObjectDefinition extends BaseDefinition {
     }
 
     resolve<T>(diContainer: IDIContainer, parentDeps: string[] = []): T {
-        const deps = this.dependencies.map((dep: BaseDefinition | any) => {
-            if (dep instanceof BaseDefinition) {
+        const deps = this.dependencies.map((dep: Definition | any) => {
+            if (dep instanceof Definition) {
                 return dep.resolve(diContainer, parentDeps);
             }
 
@@ -48,7 +48,7 @@ export default class ObjectDefinition extends BaseDefinition {
 
         const object = this.createObject(deps);
 
-        this.methods.forEach((method: IExtraMethods) => {
+        this.methods.forEach((method: Methods) => {
             const { methodName, args } = method;
             if (object[methodName] === undefined) {
                 throw new MethodIsMissingError(
@@ -57,7 +57,7 @@ export default class ObjectDefinition extends BaseDefinition {
                 );
             }
             const resolvedArgs = args.map((arg: any) => {
-                if (arg instanceof BaseDefinition) {
+                if (arg instanceof Definition) {
                     return arg.resolve(diContainer);
                 }
                 return arg;
@@ -72,7 +72,7 @@ export default class ObjectDefinition extends BaseDefinition {
         return this._dependencies;
     }
 
-    private createObject = (deps: Array<BaseDefinition | any>) => {
+    private createObject = (deps: Array<Definition | any>) => {
         return this.isAClass()
             ? new this.constructorFunction(...deps)
             : (this.constructorFunction as any)();
@@ -85,7 +85,7 @@ export default class ObjectDefinition extends BaseDefinition {
         );
     }
 
-    private set dependencies(deps: Array<BaseDefinition | any>) {
+    private set dependencies(deps: Array<Definition | any>) {
         this._dependencies = deps;
     }
 }

@@ -1,6 +1,6 @@
-import BaseDefinition from "./BaseDefinition";
+import Definition from "./Definition";
 
-export default class ValueDefinition extends BaseDefinition {
+export default class ValueDefinition extends Definition {
     constructor(private readonly value: any) {
         super("singleton");
     }
