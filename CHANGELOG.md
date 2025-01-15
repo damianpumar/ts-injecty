@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.0](https://github.com/damianpumar/ts-injecty/compare/v0.0.24...v1.0.0)
+## [1.0.0](https://github.com/damianpumar/ts-injecty/compare/v0.0.23...v1.0.0)
 
 ### Fixed
 
