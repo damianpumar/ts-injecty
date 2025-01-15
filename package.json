@@ -15,7 +15,7 @@
         "release": "NODE_ENV=production tsc --build tsconfig.json",
         "postrelease": "minify-all-js ./dist",
         "predeploy": "npm run release",
-        "deploy": "npm publish --access public && npm run push-tag",
+        "deploy": "npm publish --access public",
         "postdeploy": "git push --tags"
     },
     "keywords": [
