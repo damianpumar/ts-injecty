@@ -3,7 +3,7 @@ import { Registration, ResolveArg } from "./types";
 import DIContainer from "./container/DIContainer";
 
 import BaseDefinition from "./definitions/BaseDefinition";
-import { object, value, get, factory } from "./definitions/DefinitionBuilders";
+import { object, value, get, factory } from "./definitions/definitionBuilders";
 
 import ImplementationIsMissingError from "./errors/ImplementationIsMissingError";
 
