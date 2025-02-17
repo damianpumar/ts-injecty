@@ -35,7 +35,7 @@
         "jest": "^27.0.6",
         "lint-staged": "^11.2.0",
         "minify-all-js": "^0.1.9",
-        "prettier": "^2.4.1",
+        "prettier": "^3.0.0",
         "tcr": "^0.5.0",
         "ts-jest": "^27.0.3",
         "ts-node": "^10.9.2",
